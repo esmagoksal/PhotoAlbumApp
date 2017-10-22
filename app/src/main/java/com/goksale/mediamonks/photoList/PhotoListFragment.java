@@ -7,9 +7,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.goksale.mediamonks.R;
 import com.goksale.mediamonks.core.BaseFragment;
+import com.goksale.mediamonks.model.AlbumUIModel;
 import com.goksale.mediamonks.model.PhotoUIModel;
 import com.goksale.mediamonks.network.APIManagerProvider;
 import com.goksale.mediamonks.util.DialogUtil;
@@ -21,20 +23,23 @@ import butterknife.BindView;
 public class PhotoListFragment extends BaseFragment implements PhotoView, PhotoClickListener {
 
     private static final String KEY_PHOTO_LIST = "keyPhotoList";
-    private static final String KEY_ALBUM_ID = "keyAlbumId";
+    private static final String KEY_ALBUM = "keyAlbum";
 
     @BindView(R.id.fragment_photo_list_recyclerview)
     RecyclerView recyclerViewPhotoList;
 
-    private int albumId;
+    @BindView(R.id.fragment_photo_list_album_title)
+    TextView textViewAlbumTitle;
+
+    private AlbumUIModel album;
     private ArrayList<PhotoUIModel> photoUIModelList;
     private PhotoListAdapter photoListAdapter;
     private PhotoListPresenter photoListPresenter;
 
-    public static PhotoListFragment newInstance(int albumId) {
+    public static PhotoListFragment newInstance(AlbumUIModel album) {
 
         final Bundle args = new Bundle();
-        args.putInt(KEY_ALBUM_ID, albumId);
+        args.putParcelable(KEY_ALBUM, album);
 
         final PhotoListFragment fragment = new PhotoListFragment();
         fragment.setArguments(args);
@@ -44,9 +49,9 @@ public class PhotoListFragment extends BaseFragment implements PhotoView, PhotoC
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        albumId = getArguments().getInt(KEY_ALBUM_ID, 0);
+        album = getArguments().getParcelable(KEY_ALBUM);
         photoListPresenter = new PhotoListPresenter(APIManagerProvider.getInstance(), this);
-        photoListPresenter.getAlbumsPhotoList(getContext(),albumId);
+        photoListPresenter.getAlbumsPhotoList(getContext(),album.getId());
     }
 
     @Override
@@ -56,6 +61,7 @@ public class PhotoListFragment extends BaseFragment implements PhotoView, PhotoC
         final RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerViewPhotoList.setLayoutManager(layoutManager);
         recyclerViewPhotoList.setAdapter(photoListAdapter);
+        textViewAlbumTitle.setText(album.getTitle());
     }
 
     @Override
@@ -67,14 +73,14 @@ public class PhotoListFragment extends BaseFragment implements PhotoView, PhotoC
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(KEY_PHOTO_LIST,photoUIModelList);
-        outState.putInt(KEY_ALBUM_ID, albumId);
+        outState.putParcelable(KEY_ALBUM, album);
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState!= null) {
             photoUIModelList = savedInstanceState.getParcelableArrayList(KEY_PHOTO_LIST);
-            albumId = savedInstanceState.getInt(KEY_ALBUM_ID);
+            album = savedInstanceState.getParcelable(KEY_ALBUM);
         }
         if (photoUIModelList != null) {
             photoListAdapter.updatePhotos(photoUIModelList);

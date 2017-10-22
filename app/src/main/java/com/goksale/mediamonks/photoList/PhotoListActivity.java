@@ -8,28 +8,29 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.goksale.mediamonks.core.BaseActivity;
+import com.goksale.mediamonks.model.AlbumUIModel;
 
 public class PhotoListActivity extends BaseActivity {
 
-    private static final String KEY_ALBUM_ID = "keyPhotoList";
+    private static final String KEY_ALBUM = "keyAlbum";
 
-    private int albumId;
+    private AlbumUIModel album;
 
-    public static Intent newInstance(Context context, int albumId) {
+    public static Intent newInstance(Context context, AlbumUIModel album) {
         final Intent intent = new Intent(context, PhotoListActivity.class);
-        intent.putExtra(KEY_ALBUM_ID, albumId);
+        intent.putExtra(KEY_ALBUM, album);
         return intent;
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        albumId = getIntent().getIntExtra(KEY_ALBUM_ID, 0);
+        album = getIntent().getParcelableExtra(KEY_ALBUM);
         super.onCreate(savedInstanceState);
     }
 
     @Nullable
     @Override
     protected Fragment getContainedFragment() {
-        return PhotoListFragment.newInstance(albumId);
+        return PhotoListFragment.newInstance(album);
     }
 }

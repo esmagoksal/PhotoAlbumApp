@@ -62,7 +62,7 @@ public class AlbumListPresenter extends BasePresenter {
         });
     }
 
-    public void onAlbumClick(Context context, int albumId) {
-        navigator.navigateToPhotoList(context, albumId);
+    public void onAlbumClick(Context context, AlbumUIModel album) {
+        navigator.navigateToPhotoList(context, album);
     }
 }

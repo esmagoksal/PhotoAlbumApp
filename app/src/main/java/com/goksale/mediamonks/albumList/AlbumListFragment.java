@@ -90,6 +90,6 @@ public class AlbumListFragment extends BaseFragment implements AlbumView, AlbumC
 
     @Override
     public void onAlbumClick(AlbumUIModel albumUIModel) {
-        albumListPresenter.onAlbumClick(getContext(), albumUIModel.getId());
+        albumListPresenter.onAlbumClick(getContext(), albumUIModel);
     }
 }
