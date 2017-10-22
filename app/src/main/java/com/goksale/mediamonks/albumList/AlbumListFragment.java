@@ -51,7 +51,9 @@ public class AlbumListFragment extends BaseFragment implements AlbumView, AlbumC
         final RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerViewMovieList.setLayoutManager(layoutManager);
         recyclerViewMovieList.setAdapter(albumListAdapter);
-        albumListPresenter.getAlbumList(getContext());
+        if (albumUIModelList == null || albumUIModelList.isEmpty()) {
+            albumListPresenter.getAlbumList(getContext());
+        }
 
     }
 

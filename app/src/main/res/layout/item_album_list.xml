@@ -38,13 +38,5 @@
             tools:text="kdfknsv"
             android:paddingTop="@dimen/padding_default"/>
 
-        <TextView
-            android:id="@+id/item_album_count"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="25 Items"/>
-
     </LinearLayout>
 

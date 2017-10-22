@@ -51,7 +51,9 @@ public class PhotoListFragment extends BaseFragment implements PhotoView, PhotoC
         super.onCreate(savedInstanceState);
         album = getArguments().getParcelable(KEY_ALBUM);
         photoListPresenter = new PhotoListPresenter(APIManagerProvider.getInstance(), this);
-        photoListPresenter.getAlbumsPhotoList(getContext(),album.getId());
+        if (photoUIModelList == null || photoUIModelList.isEmpty()) {
+            photoListPresenter.getAlbumsPhotoList(getContext(), album.getId());
+        }
     }
 
     @Override
@@ -72,13 +74,13 @@ public class PhotoListFragment extends BaseFragment implements PhotoView, PhotoC
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(KEY_PHOTO_LIST,photoUIModelList);
+        outState.putParcelableArrayList(KEY_PHOTO_LIST, photoUIModelList);
         outState.putParcelable(KEY_ALBUM, album);
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        if (savedInstanceState!= null) {
+        if (savedInstanceState != null) {
             photoUIModelList = savedInstanceState.getParcelableArrayList(KEY_PHOTO_LIST);
             album = savedInstanceState.getParcelable(KEY_ALBUM);
         }

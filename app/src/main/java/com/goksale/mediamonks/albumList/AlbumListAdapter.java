@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 
 import com.goksale.mediamonks.model.AlbumUIModel;
 import com.goksale.mediamonks.model.PhotoUIModel;
-import com.goksale.mediamonks.util.ListUtil;
 
 import java.util.ArrayList;
 
@@ -36,9 +35,7 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListViewHolder> 
 
     @Override
     public void onBindViewHolder(AlbumListViewHolder holder, int position) {
-        final AlbumUIModel albumUIModel = albumUIModelList.get(position);
-        final ArrayList<PhotoUIModel> photosOfAlbum = ListUtil.getPhotosOfAlbum(photoUIModelList, albumUIModel.getId());
-        holder.onBindViewHolder(albumUIModel, photosOfAlbum.get(0), photosOfAlbum.size());
+        holder.onBindViewHolder(albumUIModelList.get(position), photoUIModelList.get(position));
     }
 
     @Override
@@ -48,7 +45,6 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListViewHolder> 
 
     public void updateAlbums(ArrayList<AlbumUIModel> albumUIModelList, ArrayList<PhotoUIModel> photoUIModelList) {
         this.albumUIModelList = albumUIModelList;
-        //FIXME:update this
         this.photoUIModelList = photoUIModelList;
         notifyDataSetChanged();
     }

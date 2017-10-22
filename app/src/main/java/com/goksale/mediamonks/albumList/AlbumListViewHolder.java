@@ -32,9 +32,6 @@ public class AlbumListViewHolder extends RecyclerView.ViewHolder implements View
     @BindView(R.id.item_album_title)
     TextView textViewAlbumTitle;
 
-    @BindView(R.id.item_album_count)
-    TextView textViewAlbumPhotoCount;
-
     private AlbumClickListener albumClickListener;
     private AlbumUIModel albumUIModel;
 
@@ -44,10 +41,9 @@ public class AlbumListViewHolder extends RecyclerView.ViewHolder implements View
         this.albumClickListener = albumClickListener;
     }
 
-    public void onBindViewHolder(AlbumUIModel albumUIModel, PhotoUIModel coverPhotoUIModel, int size) {
+    public void onBindViewHolder(AlbumUIModel albumUIModel, PhotoUIModel coverPhotoUIModel) {
         this.albumUIModel = albumUIModel;
         textViewAlbumTitle.setText(albumUIModel.getTitle());
-        textViewAlbumPhotoCount.setText(size + " Items");
 
         Picasso.with(itemView.getContext())
                 .load(coverPhotoUIModel.getThumbnailUrl())
