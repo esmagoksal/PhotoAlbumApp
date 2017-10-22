@@ -1,0 +1,59 @@
+package com.goksale.mediamonks.photoDetails;
+
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.goksale.mediamonks.R;
+import com.goksale.mediamonks.core.BaseFragment;
+import com.goksale.mediamonks.model.PhotoUIModel;
+import com.squareup.picasso.Picasso;
+
+import butterknife.BindView;
+
+public class PhotoDetailsFragment extends BaseFragment {
+
+    @BindView(R.id.fragment_photo_details_photo)
+    ImageView imageViewPhoto;
+
+    @BindView(R.id.fragment_photo_details_photo_title)
+    TextView textViewPhotoTitle;
+
+    private static final String KEY_PHOTO = "keyPhoto";
+
+    public static PhotoDetailsFragment newInstance(PhotoUIModel photoUIModel) {
+
+        final Bundle args = new Bundle();
+        args.putParcelable(KEY_PHOTO, photoUIModel);
+
+        final PhotoDetailsFragment fragment = new PhotoDetailsFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    private PhotoUIModel photoUIModel;
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.fragment_photo_details;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        photoUIModel = getArguments().getParcelable(KEY_PHOTO);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void initUserInterface(LayoutInflater inflater, View rootView) {
+        super.initUserInterface(inflater, rootView);
+        Picasso.with(getContext())
+                .load(photoUIModel.getUrl())
+                .into(imageViewPhoto);
+        textViewPhotoTitle.setText(photoUIModel.getTitle());
+    }
+}

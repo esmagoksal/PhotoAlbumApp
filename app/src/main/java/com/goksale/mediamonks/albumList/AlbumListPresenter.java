@@ -1,6 +1,8 @@
 package com.goksale.mediamonks.albumList;
 
 
+import android.content.Context;
+
 import com.goksale.mediamonks.core.BasePresenter;
 import com.goksale.mediamonks.model.AlbumUIModel;
 import com.goksale.mediamonks.model.PhotoUIModel;
@@ -56,5 +58,9 @@ public class AlbumListPresenter extends BasePresenter {
                 //TODO:showError
             }
         });
+    }
+
+    public void onAlbumClick(Context context, int albumId) {
+        navigator.navigateToPhotoList(context, albumId);
     }
 }
