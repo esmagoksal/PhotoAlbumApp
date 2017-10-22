@@ -15,13 +15,16 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 
-public class PhotoDetailsFragment extends BaseFragment {
+public class PhotoDetailsFragment extends BaseFragment implements View.OnClickListener {
 
     @BindView(R.id.fragment_photo_details_photo)
     ImageView imageViewPhoto;
 
     @BindView(R.id.fragment_photo_details_photo_title)
     TextView textViewPhotoTitle;
+
+    @BindView(R.id.fragment_photo_details_cancel)
+    ImageView imageViewCancelButton;
 
     private static final String KEY_PHOTO = "keyPhoto";
 
@@ -55,5 +58,14 @@ public class PhotoDetailsFragment extends BaseFragment {
                 .load(photoUIModel.getUrl())
                 .into(imageViewPhoto);
         textViewPhotoTitle.setText(photoUIModel.getTitle());
+        imageViewCancelButton.setOnClickListener(this);
     }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.fragment_photo_details_cancel) {
+            getActivity().finish();
+        }
+    }
+
 }

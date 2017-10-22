@@ -1,6 +1,8 @@
 package com.goksale.mediamonks.photoList;
 
 
+import android.content.Context;
+
 import com.goksale.mediamonks.core.BasePresenter;
 import com.goksale.mediamonks.model.PhotoUIModel;
 import com.goksale.mediamonks.network.APIManagerProvider;
@@ -35,5 +37,9 @@ public class PhotoListPresenter extends BasePresenter {
 
             }
         });
+    }
+
+    public void onPhotoClick(Context context, PhotoUIModel photoUIModel) {
+        navigator.navigateToPhotoDetails(context, photoUIModel);
     }
 }

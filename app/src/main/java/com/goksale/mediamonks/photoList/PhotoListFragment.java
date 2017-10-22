@@ -89,6 +89,6 @@ public class PhotoListFragment extends BaseFragment implements PhotoView, PhotoC
 
     @Override
     public void onPhotoClick(PhotoUIModel photoUIModel) {
-        //TODO:show photo details
+        photoListPresenter.onPhotoClick(getContext(), photoUIModel);
     }
 }
