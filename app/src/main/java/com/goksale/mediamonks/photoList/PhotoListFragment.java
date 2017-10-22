@@ -12,6 +12,7 @@ import com.goksale.mediamonks.R;
 import com.goksale.mediamonks.core.BaseFragment;
 import com.goksale.mediamonks.model.PhotoUIModel;
 import com.goksale.mediamonks.network.APIManagerProvider;
+import com.goksale.mediamonks.util.DialogUtil;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,7 @@ public class PhotoListFragment extends BaseFragment implements PhotoView, PhotoC
         super.onCreate(savedInstanceState);
         albumId = getArguments().getInt(KEY_ALBUM_ID, 0);
         photoListPresenter = new PhotoListPresenter(APIManagerProvider.getInstance(), this);
-        photoListPresenter.getAlbumsPhotoList(albumId);
+        photoListPresenter.getAlbumsPhotoList(getContext(),albumId);
     }
 
     @Override
@@ -85,6 +86,7 @@ public class PhotoListFragment extends BaseFragment implements PhotoView, PhotoC
     public void showPhotos(ArrayList<PhotoUIModel> photoUIModelList) {
         this.photoUIModelList = photoUIModelList;
         photoListAdapter.updatePhotos(photoUIModelList);
+        DialogUtil.dismissProgress();
     }
 
     @Override

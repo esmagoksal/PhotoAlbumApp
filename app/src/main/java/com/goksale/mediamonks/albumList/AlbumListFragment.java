@@ -13,6 +13,7 @@ import com.goksale.mediamonks.core.BaseFragment;
 import com.goksale.mediamonks.model.AlbumUIModel;
 import com.goksale.mediamonks.model.PhotoUIModel;
 import com.goksale.mediamonks.network.APIManagerProvider;
+import com.goksale.mediamonks.util.DialogUtil;
 
 import java.util.ArrayList;
 
@@ -50,7 +51,7 @@ public class AlbumListFragment extends BaseFragment implements AlbumView, AlbumC
         final RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerViewMovieList.setLayoutManager(layoutManager);
         recyclerViewMovieList.setAdapter(albumListAdapter);
-        albumListPresenter.getAlbumList();
+        albumListPresenter.getAlbumList(getContext());
 
     }
 
@@ -84,6 +85,7 @@ public class AlbumListFragment extends BaseFragment implements AlbumView, AlbumC
     public void getCoverPhotos(ArrayList<PhotoUIModel> photoUIModelList) {
         this.coverPhotoUIModelList = photoUIModelList;
         albumListAdapter.updateAlbums(albumUIModelList, coverPhotoUIModelList);
+        DialogUtil.dismissProgress();
     }
 
     @Override

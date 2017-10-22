@@ -8,6 +8,7 @@ import com.goksale.mediamonks.model.AlbumUIModel;
 import com.goksale.mediamonks.model.PhotoUIModel;
 import com.goksale.mediamonks.network.APIManagerProvider;
 import com.goksale.mediamonks.photoList.PhotoListCallback;
+import com.goksale.mediamonks.util.DialogUtil;
 import com.goksale.mediamonks.util.ListUtil;
 
 import java.util.ArrayList;
@@ -27,8 +28,9 @@ public class AlbumListPresenter extends BasePresenter {
         subscriptions = new CompositeSubscription();
     }
 
-    public void getAlbumList() {
+    public void getAlbumList(Context context) {
 
+        DialogUtil.showProgress(context);
         final Subscription subscription = apiManagerProvider.getAlbums(new AlbumListCallback() {
             @Override
             public void onSuccess(ArrayList<AlbumUIModel> albumList) {

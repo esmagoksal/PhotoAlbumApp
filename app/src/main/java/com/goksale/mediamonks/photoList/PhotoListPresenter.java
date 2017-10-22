@@ -6,6 +6,7 @@ import android.content.Context;
 import com.goksale.mediamonks.core.BasePresenter;
 import com.goksale.mediamonks.model.PhotoUIModel;
 import com.goksale.mediamonks.network.APIManagerProvider;
+import com.goksale.mediamonks.util.DialogUtil;
 
 import java.util.ArrayList;
 
@@ -24,8 +25,9 @@ public class PhotoListPresenter extends BasePresenter {
         subscriptions = new CompositeSubscription();
     }
 
-    public void getAlbumsPhotoList(int albumId) {
+    public void getAlbumsPhotoList(Context context, int albumId) {
 
+        DialogUtil.showProgress(context);
         final Subscription subscription = apiManagerProvider.getAlbumsPhotos(albumId, new PhotoListCallback() {
             @Override
             public void onSuccess(ArrayList<PhotoUIModel> photoList) {
