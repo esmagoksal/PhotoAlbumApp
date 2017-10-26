@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MediaMonks</string>
+    <string name="app_name">MVP-PhotoApp</string>
     <string name="general_loading">Loading</string>
 
 </resources>
